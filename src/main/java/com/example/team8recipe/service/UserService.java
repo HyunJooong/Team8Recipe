@@ -1,10 +1,8 @@
-package com.example.team8recipe.serrvice;
+package com.example.team8recipe.service;
 
-import com.example.team8recipe.dto.LoginRequestDto;
 import com.example.team8recipe.dto.SignupRequestDto;
 import com.example.team8recipe.entity.User;
 import com.example.team8recipe.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

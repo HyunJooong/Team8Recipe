@@ -2,7 +2,7 @@ package com.example.team8recipe.controller;
 
 import com.example.team8recipe.dto.SignupRequestDto;
 import com.example.team8recipe.entity.User;
-import com.example.team8recipe.serrvice.UserService;
+import com.example.team8recipe.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

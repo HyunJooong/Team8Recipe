@@ -3,12 +3,14 @@ package com.example.team8recipe.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Table(name="users")
 @NoArgsConstructor
 public class User {
