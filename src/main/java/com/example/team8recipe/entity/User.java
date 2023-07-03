@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name="users")
@@ -26,8 +29,10 @@ public class User {
     @Column(nullable = false)
     private String intro; // 사용자 자기소개
 
-    public User(Long id, String userId, String password, String userName, String intro) {
-        this.id = id;
+    @OneToMany(mappedBy = "user")
+    private List<Post> postList = new ArrayList<>();
+
+    public User(String userId, String password, String userName, String intro) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
