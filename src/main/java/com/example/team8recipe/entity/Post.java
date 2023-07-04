@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name = "post")
-public class Post extends TimeStamped {
+public class Post extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

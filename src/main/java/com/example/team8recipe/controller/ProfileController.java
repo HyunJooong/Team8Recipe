@@ -18,14 +18,15 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        String username = userDetails.getUser().getUserName();
-        UserRoleEnum role = userDetails.getUser().getRole();
-        boolean isAdmin = (role == UserRoleEnum.ADMIN);
+        String username = userDetails.getUser().getUsername();
+//        UserRoleEnum role = userDetails.getUser().getRole();
+//        boolean isAdmin = (role == UserRoleEnum.ADMIN);
 
         String userId = userDetails.getUser().getUserId();
         ProfileResponseDto profileResponseDto = profileService.getUsers(userId);
 
-        return new UserInfoDto(username, isAdmin, profileResponseDto);
+        return new UserInfoDto(username, profileResponseDto);
+//        return new UserInfoDto(username, isAdmin, profileResponseDto);
     }
 
     @PutMapping("/profile/{userId}")

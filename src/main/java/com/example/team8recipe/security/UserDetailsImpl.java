@@ -36,14 +36,16 @@ public class UserDetailsImpl implements UserDetails {
     //접근불가 페이지에 사용
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRoleEnum role = user.getRole();
-        String authority = role.getAuthority();
+//        UserRoleEnum role = user.getRole();
+//        String authority = role.getAuthority();
+//
+//        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
+//        Collection<GrantedAuthority> authorities = new ArrayList<>();
+//        authorities.add(simpleGrantedAuthority);
 
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(simpleGrantedAuthority);
+//        return authorities;
 
-        return authorities;
+        return null;
     }
 
     @Override

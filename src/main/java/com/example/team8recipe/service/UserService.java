@@ -18,7 +18,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // ADMIN_TOKEN
-    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+//    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     //사용자 회원가입
     public void userSignup(SignupRequestDto requestDto) {
@@ -36,7 +36,6 @@ public class UserService {
         User user = new User(userId, password, username, intro);
         userRepository.save(user);
 
-        return user;
     }
 
 }

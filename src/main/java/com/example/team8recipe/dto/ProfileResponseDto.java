@@ -13,7 +13,7 @@ public class ProfileResponseDto {
 
     public ProfileResponseDto(User user) {
         this.id = user.getId();
-        this.userName = user.getUserName();
+        this.userName = user.getUsername();
         this.intro = user.getIntro();
     }
 }

@@ -26,7 +26,7 @@ public class ProfileService {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
 
-        user.setUserName(updateProfile.getUserName());
+        user.setUsername(updateProfile.getUserName());
         user.setIntro(updateProfile.getIntro());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);

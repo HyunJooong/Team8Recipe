@@ -5,7 +5,7 @@ import com.example.team8recipe.dto.PostListResponseDto;
 import com.example.team8recipe.dto.PostRequestDto;
 import com.example.team8recipe.dto.PostResponseDto;
 import com.example.team8recipe.security.UserDetailsImpl;
-import com.example.team8recipe.serrvice.PostService;
+import com.example.team8recipe.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

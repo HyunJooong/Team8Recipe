@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserInfoDto {
     String userName;
-    boolean isAdmin;
+//    boolean isAdmin;
     private ProfileResponseDto profileResponseDto;
 }
