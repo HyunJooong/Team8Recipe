@@ -1,4 +1,4 @@
 package com.example.team8recipe.dto;
 
-public class PostResponse {
+public class PostResponseDto {
 }
