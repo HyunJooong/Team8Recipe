@@ -34,10 +34,7 @@ public class ProfileController {
             @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        User user = userDetails.getUser();
-
         ProfileResponseDto profileResponseDto = profileService.updateProfile(userId, updateProfile);
-
         return profileResponseDto;
     }
 }
