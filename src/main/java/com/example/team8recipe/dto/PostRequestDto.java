@@ -1,9 +1,11 @@
 package com.example.team8recipe.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class PostRequest {
+@Setter
+public class PostRequestDto {
     private String title;
     private String content;
 }

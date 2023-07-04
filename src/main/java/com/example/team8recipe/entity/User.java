@@ -21,16 +21,16 @@ public class User {
     private String password; // 비밀번호
 
     @Column(nullable = false)
-    private String userName; //사용자 이름
+    private String username; //사용자 이름 *userName -> username
 
     @Column(nullable = false)
     private String intro; // 사용자 자기소개
 
-    public User(Long id, String userId, String password, String userName, String intro) {
+    public User(Long id, String userId, String password, String username, String intro) {
         this.id = id;
         this.userId = userId;
         this.password = password;
-        this.userName = userName;
+        this.username = username; // *userName -> username
         this.intro = intro;
     }
 }
