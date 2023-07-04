@@ -28,8 +28,9 @@ public class ProfileService {
 
         user.setUsername(updateProfile.getUserName());
         user.setIntro(updateProfile.getIntro());
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+
+//        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(user.getPassword());
 
         user = userRepository.save(user);
 
