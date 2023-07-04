@@ -1,5 +1,6 @@
 package com.example.team8recipe.service;
 
+import com.example.team8recipe.dto.ProfileRequestDto;
 import com.example.team8recipe.dto.ProfileResponseDto;
 import com.example.team8recipe.entity.User;
 import com.example.team8recipe.repository.UserRepository;
@@ -14,7 +15,25 @@ public class ProfileService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public ProfileResponseDto getUsers(User user) {
-        return null;
+    public ProfileResponseDto getUsers(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
+        ProfileResponseDto profileResponseDto = new ProfileResponseDto(user);
+        return profileResponseDto;
+    }
+
+    public ProfileResponseDto updateProfile(Long userId,ProfileRequestDto updateProfile) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
+
+        user.setUserName(updateProfile.getUserName());
+        user.setIntro(updateProfile.getIntro());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        user = userRepository.save(user);
+
+        ProfileResponseDto profileResponseDto = new ProfileResponseDto(user);
+        return profileResponseDto;
     }
 }
