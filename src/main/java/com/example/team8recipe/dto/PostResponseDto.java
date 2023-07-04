@@ -1,4 +1,14 @@
 package com.example.team8recipe.dto;
 
-public class PostResponseDto {
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+
+@Getter
+public class PostResponse {
+    private long id;
+    private String title;
+    private String content;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedDate;
 }
