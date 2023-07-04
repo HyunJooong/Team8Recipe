@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name="users")
@@ -21,15 +24,18 @@ public class User {
     private String password; // 비밀번호
 
     @Column(nullable = false)
-    private String username; //사용자 이름 *userName -> username
+    private String userName; //사용자 이름
 
     @Column(nullable = false)
     private String intro; // 사용자 자기소개
 
-    public User( String userId, String password, String username, String intro) {
+    @OneToMany(mappedBy = "user")
+    private List<Post> postList = new ArrayList<>();
+
+    public User(String userId, String password, String userName, String intro) {
         this.userId = userId;
         this.password = password;
-        this.username = username; // *userName -> username
+        this.userName = userName;
         this.intro = intro;
     }
 }
