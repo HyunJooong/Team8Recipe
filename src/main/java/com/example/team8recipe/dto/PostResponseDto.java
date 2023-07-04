@@ -23,8 +23,8 @@ public class PostResponseDto extends ApiResponseDto{
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.createdAt = post.getCreatAt();
-        this.modifiedAt = post.getModifiedDate();
+        this.creatAt = post.getCreatAt();
+        this.modifiedDate = post.getModifiedDate();
         this.username = post.getUser().getUsername();
 //        this.comments = post.getComments().stream()
 //                .map(CommentResponseDto::new)
