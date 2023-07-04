@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+
+    <style>
+        html, body {
+
+            margin: 0;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div >아이디</div>
+    <input type="text" name="userId" id="userId" class="login-input-box">
+
+    <div >비밀번호</div>
+    <input type="password" name="password" id="password" class="login-input-box">
+
+    <div>
+        <button  onclick="onLogin()">로그인</button>
+        <button  onclick="signup()">회원가입</button>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    function onLogin() {
+        let userId = $('#userId').val();
+        let password = $('#password').val();
+
+        $.ajax({
+            type: "POST",
+            url: `/user/login`,
+            contentType: "application/json",
+            data: JSON.stringify({userId: userId, password: password}),
+        })
+            .done(function (res, status, xhr) {
+                window.location.href = '/';
+            })
+
+    }
+
+    function  signup(){
+        window.location.href = "/user/signup-page";
+    }
+</script>

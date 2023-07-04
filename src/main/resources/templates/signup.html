@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+    <style>
+        html, body {
+
+            margin: 0;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+        }
+        .top{
+            width: 100%;
+            height: 10%;
+            border: 1px solid black;
+        }
+        .mid{
+            width: 80%;
+            height: 70%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        회원가입
+    </div>
+    <div class="mid">
+        <form action="/user/signup" method="post">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">userId</span>
+            <input type="text" class="form-control" name="userId" placeholder="Id" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Password</span>
+            <input type="text" class="form-control" name="Password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">Username</span>
+            <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon4">Intro</span>
+            <input type="text" class="form-control" name="Intro" placeholder="Intro" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+            <div>
+                <input type="submit" value="확인">
+                <button type="button" class="cancelBtn" onclick="cancel()">취소</button>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>
+<script>
+    function cancel(){
+        window.location.href = "/";
+    }
+</script>
