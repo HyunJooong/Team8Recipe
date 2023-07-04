@@ -22,7 +22,7 @@ public class ProfileController {
         UserRoleEnum role = userDetails.getUser().getRole();
         boolean isAdmin = (role == UserRoleEnum.ADMIN);
 
-        Long userId = userDetails.getUser().getId();
+        String userId = userDetails.getUser().getUserId();
         ProfileResponseDto profileResponseDto = profileService.getUsers(userId);
 
         return new UserInfoDto(username, isAdmin, profileResponseDto);
@@ -30,7 +30,7 @@ public class ProfileController {
 
     @PutMapping("/profile/{userId}")
     public ProfileResponseDto updateProfile(
-            @PathVariable Long userId,
+            @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
