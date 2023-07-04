@@ -129,7 +129,8 @@ public class JwtUtil {
         return null;
     }
 
-    public void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
+    //로그아웃 쿠키 날짜를 0으로 만들어 만료시킴
+    public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             return;
