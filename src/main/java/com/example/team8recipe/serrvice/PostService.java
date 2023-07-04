@@ -4,6 +4,7 @@ import com.example.team8recipe.dto.PostListResponseDto;
 import com.example.team8recipe.dto.PostRequestDto;
 import com.example.team8recipe.dto.PostResponseDto;
 import com.example.team8recipe.entity.Post;
+import com.example.team8recipe.entity.User;
 import com.example.team8recipe.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,8 @@ public class PostService {
     public void deletePost(Long id, User user) {
         Post post = findPost(id);
 
-        // 게시글 작성자(post.user) 와 요청자(user) 가 같은지 또는 Admin 인지 체크 (아니면 예외발생)
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || post.getUser().equals(user))) {
+        // 게시글 작성자(post.user) 인지 체크 (아니면 예외발생)
+        if (post.getUser().equals(user)) {
             throw new RejectedExecutionException();
         }
 
@@ -56,8 +57,8 @@ public class PostService {
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto, User user) {
         Post post = findPost(id);
 
-        // 게시글 작성자(post.user) 와 요청자(user) 가 같은지 또는 Admin 인지 체크 (아니면 예외발생)
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || post.getUser().equals(user))) {
+        // 게시글 작성자(post.user) 인지 체크 (아니면 예외발생)
+        if (post.getUser().equals(user)) {
             throw new RejectedExecutionException();
         }
 

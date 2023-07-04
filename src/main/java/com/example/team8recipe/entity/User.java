@@ -26,8 +26,7 @@ public class User {
     @Column(nullable = false)
     private String intro; // 사용자 자기소개
 
-    public User(Long id, String userId, String password, String username, String intro) {
-        this.id = id;
+    public User( String userId, String password, String username, String intro) {
         this.userId = userId;
         this.password = password;
         this.username = username; // *userName -> username

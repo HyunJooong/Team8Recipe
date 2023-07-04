@@ -1,12 +1,15 @@
 package com.example.team8recipe.controller;
 
+import com.example.team8recipe.dto.ApiResponseDto;
 import com.example.team8recipe.dto.PostListResponseDto;
 import com.example.team8recipe.dto.PostRequestDto;
 import com.example.team8recipe.dto.PostResponseDto;
+import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.serrvice.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.RejectedExecutionException;

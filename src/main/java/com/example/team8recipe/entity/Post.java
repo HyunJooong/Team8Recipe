@@ -31,9 +31,6 @@ public class Post extends TimeStamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-//    private List<Comment> comments;
-
     public Post(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
