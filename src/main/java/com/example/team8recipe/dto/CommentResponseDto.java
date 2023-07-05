@@ -20,6 +20,6 @@ public class CommentResponseDto extends ApiResponseDto{
         this.body = comment.getBody();
         this.userName = comment.getUser().getUsername();
         this.createdAt =comment.getPost().getCreatedAt();
-        this.modifiedAt = comment.getPost().getModifiedDate();
+        this.modifiedAt = comment.getPost().getModifiedAt();
     }
 }
