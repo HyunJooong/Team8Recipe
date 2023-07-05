@@ -1,14 +1,10 @@
 package com.example.team8recipe.entity;
 
 import com.example.team8recipe.dto.PostRequestDto;
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -30,6 +26,9 @@ public class Post extends Timestamped {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Comment> comments; // 댓글
 
     public Post(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();

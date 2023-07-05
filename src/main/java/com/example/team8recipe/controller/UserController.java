@@ -2,7 +2,7 @@ package com.example.team8recipe.controller;
 
 import com.example.team8recipe.dto.SignupRequestDto;
 import com.example.team8recipe.jwt.JwtUtil;
-import com.example.team8recipe.serrvice.UserService;
+import com.example.team8recipe.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -31,6 +31,7 @@ public class UserController {
 
    @GetMapping("/login-page")
     public String userlogin(){
+
         return "login";
    }
 

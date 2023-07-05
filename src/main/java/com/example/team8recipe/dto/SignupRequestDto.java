@@ -1,5 +1,6 @@
 package com.example.team8recipe.dto;
 
+import com.example.team8recipe.entity.UserRoleEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -23,4 +24,6 @@ public class SignupRequestDto {
 
     @Size(min = 10, max = 1000) // 자기소개 최대 10자 이상
     private String intro;
+
+
 }
