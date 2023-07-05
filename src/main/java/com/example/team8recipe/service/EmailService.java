@@ -23,7 +23,7 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
 
     //인증번호 생성
-    private final String ePw = createKey();
+    private String ePw;
 
     @Value("${spring.mail.username}")
     private String id;
@@ -55,8 +55,23 @@ public class EmailService {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
-        for (int i = 0; i < 6; i++) { // 인증코드 6자리
-            key.append((rnd.nextInt(10)));
+        for (int i = 0; i < 8; i++) { // 인증코드 8자리
+            int index = rnd.nextInt(3); // 0~2 까지 랜덤, rnd 값에 따라서 아래 switch 문이 실행됨
+
+            switch (index) {
+                case 0:
+                    key.append((char) ((int) (rnd.nextInt(26)) + 97));
+                    // a~z (ex. 1+97=98 => (char)98 = 'b')
+                    break;
+                case 1:
+                    key.append((char) ((int) (rnd.nextInt(26)) + 65));
+                    // A~Z
+                    break;
+                case 2:
+                    key.append((rnd.nextInt(10)));
+                    // 0~9
+                    break;
+            }
         }
         return key.toString();
     }
@@ -68,6 +83,9 @@ public class EmailService {
         bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
      */
     public String sendSimpleMessage(String to)throws Exception {
+
+        ePw = createKey();
+
         MimeMessage message = createMessage(to);
         try{
             javaMailSender.send(message); // 메일 발송
