@@ -34,7 +34,9 @@ public class User {
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Post> postList = new ArrayList<>();
 
-
+    // 좋아요 리스트
+    @OneToMany(mappedBy = "user")
+    private List<Good> goodList = new ArrayList<>();
 
     public User(String userId, String password, String username, String intro) {
         this.userId = userId;
