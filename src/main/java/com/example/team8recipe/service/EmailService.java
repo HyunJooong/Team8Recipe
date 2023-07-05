@@ -95,4 +95,8 @@ public class EmailService {
         }
         return ePw; // 메일로 보냈던 인증 코드를 서버로 리턴
     }
+
+    public String getEPw() {
+        return ePw;
+    }
 }
