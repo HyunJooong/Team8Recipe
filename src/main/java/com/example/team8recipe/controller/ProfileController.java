@@ -47,22 +47,17 @@ public class ProfileController {
     }
 
     @PutMapping("/profile/{userId}/password")
-    public ResponseEntity<String> changePassword(
+    public ResponseEntity<ProfileResponseDto> changePassword(
             @PathVariable String userId,
-            @RequestParam String newPassword,
-            @RequestParam String confirmPassword,
+            @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        if (!newPassword.equals(confirmPassword)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-
         String loggedInUserId = userDetails.getUser().getUserId();
         if (!loggedInUserId.equals(userId)) {
-            throw new IllegalArgumentException("유저권한이 일치하지 않습니다.");
+            throw new IllegalArgumentException("유저 권한이 존재하지 않습니다.");
         }
 
-        profileService.changePassword(userId, newPassword);
-        return ResponseEntity.ok("비밀번호가 변경되었습니다.");
+        ProfileResponseDto responseDto = profileService.changePassword(userId, updateProfile);
+        return ResponseEntity.ok(responseDto);
     }
 }
