@@ -3,25 +3,23 @@ package com.example.team8recipe.controller;
 import com.example.team8recipe.dto.SignupRequestDto;
 import com.example.team8recipe.jwt.JwtUtil;
 import com.example.team8recipe.serrvice.UserService;
-import com.example.team8recipe.service.RegisterMail;
+import com.example.team8recipe.service.EmailService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final RegisterMail registerMail;
-
+    private final EmailService emailService;
     private final JwtUtil jwtUtil;
-    public UserController(UserService userService, RegisterMail registerMail,JwtUtil jwtUtil) {
-        this.userService = userService;
-        this.registerMail = registerMail;
-        this.jwtUtil = jwtUtil;
-    }
     @GetMapping("/signup-page")
     public String userSignup(){
         return "signup";
@@ -34,12 +32,11 @@ public class UserController {
     }
 
     // 이메일 인증
-    @PostMapping("login/mailConfirm")
+    @PostMapping("/signup/mailConfirm")
     @ResponseBody
-    String mailConfirm(@RequestParam("email") String email) throws Exception {
-
-        String code = registerMail.sendSimpleMessage(email);
-        System.out.println("인증코드 : " + code);
+    public String mailConfirm(@RequestParam String email) throws Exception {
+        String code = emailService.sendSimpleMessage(email);
+        log.info("인증코드 : " + code);
         return code;
     }
 
