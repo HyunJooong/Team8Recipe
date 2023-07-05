@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = false)
     private String intro; // 사용자 자기소개
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
     private List<Post> postList = new ArrayList<>();
 
     public User(String userId, String password, String username, String intro) {
