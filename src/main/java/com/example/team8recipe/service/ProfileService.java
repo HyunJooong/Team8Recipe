@@ -18,23 +18,28 @@ public class ProfileService {
     public ProfileResponseDto getUsers(String userId) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
-        ProfileResponseDto profileResponseDto = new ProfileResponseDto(user);
-        return profileResponseDto;
+        return new ProfileResponseDto(user);
     }
 
-    public ProfileResponseDto updateProfile(String userId,ProfileRequestDto updateProfile) {
+    public ProfileResponseDto updateProfile(String userId, ProfileRequestDto updateProfile) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
 
         user.setUsername(updateProfile.getUserName());
         user.setIntro(updateProfile.getIntro());
 
-//        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(user.getPassword());
-
         user = userRepository.save(user);
 
-        ProfileResponseDto profileResponseDto = new ProfileResponseDto(user);
-        return profileResponseDto;
+        return new ProfileResponseDto(user);
+    }
+
+    public void changePassword(String userId, String newPassword) {
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
+
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
     }
 }
