@@ -62,5 +62,10 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
+    //댓글 하나 조회(댓글 수정을 위해)
+    public Comment findById(Long id){
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found" + id));
+    }
 
 }
