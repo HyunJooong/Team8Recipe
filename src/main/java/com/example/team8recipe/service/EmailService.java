@@ -3,6 +3,7 @@ package com.example.team8recipe.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 @PropertySource("classpath:application.properties")
+@Getter
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -95,4 +97,5 @@ public class EmailService {
         }
         return ePw; // 메일로 보냈던 인증 코드를 서버로 리턴
     }
+
 }
