@@ -28,11 +28,12 @@ public class Post extends TimeStamped {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Comment> comments; // 댓글
 
     public Post(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
