@@ -34,6 +34,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
 
+
+
     public User(String userId, String password, String username, String intro) {
         this.userId = userId;
         this.password = password;
