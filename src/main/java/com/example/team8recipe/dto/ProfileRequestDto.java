@@ -12,4 +12,5 @@ public class ProfileRequestDto {
     private String password;
     private String userName;
     private String intro;
+    private String confirmPassword;
 }

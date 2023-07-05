@@ -16,6 +16,10 @@ repositories {
 }
 
 dependencies {
+	// spring mail
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail:3.1.1'
+
 	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
@@ -31,6 +35,10 @@ dependencies {
 
 	// json
 	implementation 'org.json:json:20230227'
+
+
+	// https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
+	implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
 
 	// JWT
 	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'

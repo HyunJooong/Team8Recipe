@@ -8,6 +8,8 @@ import com.example.team8recipe.entity.UserRoleEnum;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +32,32 @@ public class ProfileController {
     }
 
     @PutMapping("/profile/{userId}")
-    public ProfileResponseDto updateProfile(
+    public ResponseEntity<ProfileResponseDto> updateProfile(
             @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        ProfileResponseDto profileResponseDto = profileService.updateProfile(userId, updateProfile);
-        return profileResponseDto;
+        String loggedInUserId = userDetails.getUser().getUserId();
+        if (!loggedInUserId.equals(userId)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        ProfileResponseDto updatedProfile = profileService.updateProfile(userId, updateProfile);
+        return ResponseEntity.ok(updatedProfile);
+    }
+
+    @PutMapping("/profile/{userId}/password")
+    public ResponseEntity<ProfileResponseDto> changePassword(
+            @PathVariable String userId,
+            @RequestBody ProfileRequestDto updateProfile,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        String loggedInUserId = userDetails.getUser().getUserId();
+        if (!loggedInUserId.equals(userId)) {
+            throw new IllegalArgumentException("유저 권한이 존재하지 않습니다.");
+        }
+
+        ProfileResponseDto responseDto = profileService.changePassword(userId, updateProfile);
+        return ResponseEntity.ok(responseDto);
     }
 }

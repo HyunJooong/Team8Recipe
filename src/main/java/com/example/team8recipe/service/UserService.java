@@ -1,4 +1,4 @@
-package com.example.team8recipe.serrvice;
+package com.example.team8recipe.service;
 
 import com.example.team8recipe.dto.LoginRequestDto;
 import com.example.team8recipe.dto.SignupRequestDto;
