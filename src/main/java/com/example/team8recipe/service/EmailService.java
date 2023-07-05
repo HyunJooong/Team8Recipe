@@ -44,7 +44,7 @@ public class EmailService {
         msg += "<br>";
         msg += "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
         msg += "<br>";
-        msg += "<p>항상 당신의 레시피을 응원합니다. 감사합니다!<p>";
+        msg += "<p>항상 당신의 레시피를 응원합니다. 감사합니다!<p>";
         msg += "<br>";
         msg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
         msg += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
@@ -54,7 +54,7 @@ public class EmailService {
         msg += "</div>";
 
         message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
-        message.setFrom(new InternetAddress(id,"prac_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress(id,"Tean8Recipe")); //보내는 사람의 메일 주소, 보내는 사람 이름
 
         return message;
     }
