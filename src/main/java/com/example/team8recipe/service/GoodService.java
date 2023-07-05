@@ -7,6 +7,7 @@ import com.example.team8recipe.entity.User;
 import com.example.team8recipe.repository.GoodRepository;
 import com.example.team8recipe.repository.PostRepository;
 import com.example.team8recipe.security.UserDetailsImpl;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +23,13 @@ public class GoodService {
         this.goodRepository = goodRepository;
     }
 
-
     public void goodClick(Long id, GoodRequestDto requestDto, UserDetailsImpl userDetails) {
         //게시글이 있는지 확인
         Post post = findPost(id);
         User user = userDetails.getUser();
 
         Good good = new Good(post,user);
+
 
 //        goodRepository.;
         //버튼을 눌른 상태이거나 누르지않은 상태를 true/false 로 구분
@@ -38,7 +39,11 @@ public class GoodService {
             List<Good> goodtest = goodRepository.findByUser(user);
             for(Good goodtests :goodtest){
                 System.out.println("goodtests.getId() = " + goodtests.getId());
-//                goodRepository.deleteById(id);
+                System.out.println("goodtests.getPost().getId() = " + goodtests.getPost().getId());
+                if(goodtests.getPost().getId().equals(id)){
+                    goodRepository.deleteById(goodtests.getId());
+                }
+
             }
         }else {
             System.out.println("저장");
@@ -52,4 +57,10 @@ public class GoodService {
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
         );
     }
+
+//    private User findUser(String username){
+//        return postRepository.findByUser(username).orElseThrow(()->
+//                new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
+//        );
+//    }
 }
