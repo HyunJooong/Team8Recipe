@@ -25,7 +25,7 @@ public class RegisterMail implements MailServiceInter {
         MimeMessage message = emailsender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);
-        message.setSubject("GoodJob 회원가입 이메일 인증");
+        message.setSubject("Team8Recipe 회원가입 이메일 인증");
 
         String msgg = "";
         msgg += "<div style='margin:100px;'>";
