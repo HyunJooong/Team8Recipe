@@ -27,7 +27,6 @@
         <header class="mb-4">
 
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Id</span>
             <input type="text" class="form-control" id="id" placeholder="Username" aria-label="Username"
                    aria-describedby="basic-addon1" th:value="${data.getId}">
           </div>
@@ -56,7 +55,7 @@
 
 <script th:inline="javascript">
   $(document).ready(function () {
-    // $('#id').hide();
+    $('#id').hide();
   });
 
   var post =[[${data}]];
@@ -70,8 +69,13 @@
         method: 'DELETE'
       })
               .then(() => {
-                alert('삭제가 완료되었습니다.');
-                location.replace('/');
+                if(response['status'] == 200){
+                  alert('삭제할 수 없습니다.');
+                  location.replace(`/`);
+                }else{
+                  alert('삭제되었습니다.');
+                  location.replace(`/`);
+                }
               });
     });
   }
@@ -92,10 +96,16 @@
                   content: document.getElementById('content').value
               })
           })
-              .then(() => {
-                  alert('수정이 완료되었습니다.');
-                  location.replace(`/`);
-              });
+                  .then((response) => {
+                    if(response['status'] == 200){
+                      alert('수정이 완료되었습니다.');
+                      location.replace(`/api/posts/${id}`);
+                    }else{
+                      alert('수정할 수 없습니다.');
+                      location.replace(`/`);
+                    }
+                  });
+
       });
   }
 

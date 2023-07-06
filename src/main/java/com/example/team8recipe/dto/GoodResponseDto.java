@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GoodRequestDto {
+public class GoodResponseDto {
     private boolean success;
+    private Long number;
 }

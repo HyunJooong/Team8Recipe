@@ -1,6 +1,5 @@
 package com.example.team8recipe.dto;
 
-import com.example.team8recipe.entity.UserRoleEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
