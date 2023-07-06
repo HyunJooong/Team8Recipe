@@ -24,64 +24,89 @@
     <div class="row">
         <div class="col-lg-8">
             <article>
-                <header class="mb-4">
-                    <h1 class="fw-bolder mb-1" th:text="${post.title}"></h1>
-                    <div class="text-muted fst-italic mb-2" th:text="작성일시
-                        ${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
-                    <div class="text-muted fst-italic mb-2" th:text="수정일시
-                        ${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm')}"></div>
-                </header>
-                <section class="mb-5">
-                    <p class="fs-5 mb-4" th:text="${post.content}"></p>
-                </section>
-                <button type="button" id="modify-btn" th:onclick="|location.href='@{/api/posts/${id}}'|"
-                        class="btn btn-outline-dark">수정</button>
-                <button type="button" id="delete-btn" class="btn btn-outline-dark">삭제</button>
+                <form action="/api/edit-page" method="post"  onsubmit="jbSubmit()">
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1" >Id</span>
+                        <input type="text" class="form-control" id = "id" name="id" placeholder="Username" aria-label="Username"
+                               aria-describedby="basic-addon1" th:value="${post.getId()}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2" >title</span>
+                        <input type="text" class="form-control" id = "title" name="title" placeholder="Username" aria-label="Username"
+                               aria-describedby="basic-addon1" th:value="${post.getTitle()}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">content</span>
+                        <input type="text" class="form-control" id = "content" name="content" placeholder="Username" aria-label="Username"
+                               aria-describedby="basic-addon1" th:value="${post.getContent()}">
+                    </div>
+                    <input id="signupSuccess" type="submit" value="수정하기">
+                    <button type="button" class="cancelBtn" id="delete-btn">삭제하기</button>
+                </form>
+
             </article>
         </div>
     </div>
 </div>
 </body>
 
-<script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // $('#id').hide();
+        $('#title').attr('disabled', true);
+        $('#content').attr('disabled', true);
+    });
+
+    var post =[[${post}]];
+
     const deleteButton = document.getElementById('delete-btn')
 
     if (deleteButton) {
         deleteButton.addEventListener('click', event => {
-            let id = document.getElementById('post_id').value;
+             let id = post.id;
             fetch(`/api/posts/${id}`, {
                 method: 'DELETE'
             })
                 .then(() => {
                     alert('삭제가 완료되었습니다.');
-                    location.replace('/posts');
+                    location.replace('/');
                 });
         });
     }
 
-    const modifyButton = document.getElementById('modify-btn')
-
-    if (modifyButton) {
-        modifyButton.addEventListener('click', event => {
-            let parmas = new URLSearchParams(location.search);
-            let id = params.get(id);
-
-            fetch(`api/posts/${id}`, {
-                method : 'PUT' ,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    title: document.getElementById('title').value,
-                    content: document.getElementById('content').value
-                })
-            })
-                .then(() => {
-                    alert('수정이 완료되었습니다.');
-                    location.replace(`/posts/${id}`);
-                });
-        });
+    function jbSubmit(){
+        $('#title').attr('disabled', false)
+        $('#content').attr('disabled', false)
     }
+
+
+    // const modifyButton = document.getElementById('modify-btn')
+    //
+    // if (modifyButton) {
+    //     modifyButton.addEventListener('click', event => {
+    //         let parmas = new URLSearchParams(location.search);
+    //         let id = params.get(id);
+    //
+    //         fetch(`api/posts/${id}`, {
+    //             method : 'PUT' ,
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 title: document.getElementById('title').value,
+    //                 content: document.getElementById('content').value
+    //             })
+    //         })
+    //             .then(() => {
+    //                 alert('수정이 완료되었습니다.');
+    //                 location.replace(`/posts/${id}`);
+    //             });
+    //     });
+    // }
+
+
 </script>
 
 

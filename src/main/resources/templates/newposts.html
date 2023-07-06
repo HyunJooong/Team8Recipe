@@ -25,18 +25,22 @@
     <div class="col-lg-8">
       <article>
         <header class="mb-4">
-          <h1 class="fw-bolder mb-1" th:text="${post.title}"></h1>
-          <div class="text-muted fst-italic mb-2" th:text="작성일시
-                        ${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
-          <div class="text-muted fst-italic mb-2" th:text="수정일시
-                        ${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm')}"></div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">title</span>
+            <input type="text" class="form-control" id="title" placeholder="Username" aria-label="Username"
+                   aria-describedby="basic-addon1">
+          </div>
         </header>
         <section class="mb-5">
-          <p class="fs-5 mb-4" th:text="${post.content}"></p>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">content</span>
+            <input type="text" class="form-control" id="content" placeholder="Username" aria-label="Username"
+                   aria-describedby="basic-addon1">
+          </div>
         </section>
-        <button type="button" id="create-btn" th:onclick="|location.href='@{/api/posts}'|"
+        <button type="button" id="create-btn" th:onclick="|location.href='@{/}'|"
                 class="btn btn-outline-dark">등록</button>
-        <button type="button" id="cancel-btn" class="btn btn-outline-dark">취소</button>
+        <button type="button" id="cancel-btn" class="btn btn-outline-dark" onclick="cancel()">취소</button>
       </article>
     </div>
   </div>
@@ -44,12 +48,14 @@
 </body>
 
 <script>
-
+  function cancel() {
+    window.location.href = "/";
+  }
   const createButton = document.getElementById('create-btn')
 
   if (createButton) {
     createButton.addEventListener('click', event => {
-      fetch(`api/posts/${id}`, {
+      fetch(`/api/posts`, {
         method : 'POST' ,
         headers: {
           "Content-Type": "application/json",
@@ -61,24 +67,10 @@
       })
               .then(() => {
                 alert('등록 완료되었습니다.');
-                location.replace(`/posts`);
+                location.replace(`/`);
               });
     });
 
-    const cancelButton = document.getElementById('cancel-btn')
-
-    if (cancelButton) {
-      cancelButton.addEventListener('click', event => {
-        let id = document.getElementById('post_id').value;
-        fetch(`/api/posts/${id}`, {
-          method: 'DELETE'
-        })
-                .then(() => {
-                  alert('삭제가 완료되었습니다.');
-                  location.replace('/posts');
-                });
-      });
-    }
   }
 </script>
 

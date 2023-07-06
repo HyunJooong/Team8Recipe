@@ -29,6 +29,11 @@ public class UserController {
         return "signup";
     }
 
+    @GetMapping("/posts-page")
+    public String postsSignup(){
+        return "posts";
+    }
+
     @PostMapping("/signup")
     public String userSignup(@Valid @ModelAttribute SignupRequestDto requestDto){
         userService.userSignup(requestDto);
