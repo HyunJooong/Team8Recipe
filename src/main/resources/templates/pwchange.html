@@ -37,31 +37,33 @@
         </p>
     </div>
     <div class="text-center container">
-        <table>
-            <tr>
-                <th class="p-3">현재 비밀번호</th>
-                <td>
-                    <input type="password" id="memberPw1" class="inputbox form-control text-center"
-                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </td>
-            </tr>
-            <tr>
-                <th class="p-3">새로운 비밀번호</th>
-                <td>
-                    <input type="password" id="memberPw2" class="inputbox form-control text-center"
-                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </td>
-            </tr>
-            <tr>
-                <th class="p-3">새로운 비밀번호 확인</th>
-                <td>
-                    <input type="password" id="memberPw3" class="inputbox form-control text-center"
-                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </td>
-            </tr>
-        </table>
-        <button type="button" id="pwUpdate" class="btn btn-primary btn">변경</button>
-        <button type="button" id="cancel" class="btn btn-secondary btn">취소</button>
+        <form id="passwordForm" name="infobox" style="margin-top: 15%;">
+            <table>
+                <tr>
+                    <th class="p-3">현재 비밀번호</th>
+                    <td>
+                        <input type="password" id="memberPw1" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="p-3">새로운 비밀번호</th>
+                    <td>
+                        <input type="password" id="memberPw2" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="p-3">새로운 비밀번호 확인</th>
+                    <td>
+                        <input type="password" id="memberPw3" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+            </table>
+            <button type="button" id="pwUpdate" class="btn btn-primary btn">변경</button>
+            <button type="button" id="cancel" class="btn btn-secondary btn">취소</button>
+        </form>
     </div>
 </body>
 

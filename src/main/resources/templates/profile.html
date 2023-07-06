@@ -24,7 +24,8 @@
             margin: auto;
             position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-around;
             align-items: center;
         }
     </style>
@@ -32,12 +33,12 @@
 
 <body>
     <div class="p-3 bg-body-secondary">
-        <p class="display-6 text-center">
+        <p class="display-6 text-center m-3">
             마이페이지 정보수정
         </p>
     </div>
     <div class="text-center container">
-        <form id="profileForm" name="infobox">
+        <form id="profileForm" name="infobox" style="margin-top: 15%;">
             <table>
                 <tr>
                     <th class="p-3">닉네임</th>
@@ -95,44 +96,44 @@
     });
 
     $.ajax({
-    url: "/profile",
-    type: "GET",
-    contentType: "application/json",
-    success: function (response) {
-        let userName = response['profileResponseDto']['userName'];
-        let intro = response['profileResponseDto']['intro'];
-        let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
-        console.log(userId)
-        let textarea_str = $('#intro').val();
-        textarea_str = intro;
+        url: "/profile",
+        type: "GET",
+        contentType: "application/json",
+        success: function (response) {
+            let userName = response['profileResponseDto']['userName'];
+            let intro = response['profileResponseDto']['intro'];
+            let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
+            console.log(userId)
+            let textarea_str = $('#intro').val();
+            textarea_str = intro;
 
-        $('#userName').attr('value', userName);
-        $('#intro').html(textarea_str);
+            $('#userName').attr('value', userName);
+            $('#intro').html(textarea_str);
 
-        // 수정 버튼 클릭 시 AJAX 요청에서 실제 사용자 ID값 사용
-        $('#changebtnsuccess').click(function () {
-            let userName = $('#userName').val();
-            let intro = $('#intro').val();
+            // 수정 버튼 클릭 시 AJAX 요청에서 실제 사용자 ID값 사용
+            $('#changebtnsuccess').click(function () {
+                let userName = $('#userName').val();
+                let intro = $('#intro').val();
 
-            $.ajax({
-                url: "/profile/update/"+userId, // 실제 사용자 ID값 사용
-                type: "PUT",
-                data: JSON.stringify({
-                    "userName": userName,
-                    "intro": intro,
-                }),
-                contentType: "application/json",
-                success: function(json) {
-                    // console.log(json);
-                    alert("정보수정이 완료되었습니다.")
-                },
-                error: function() {
-                    alert("수정에 실패하였습니다.")
-                }
+                $.ajax({
+                    url: "/profile/update/" + userId, // 실제 사용자 ID값 사용
+                    type: "PUT",
+                    data: JSON.stringify({
+                        "userName": userName,
+                        "intro": intro,
+                    }),
+                    contentType: "application/json",
+                    success: function (json) {
+                        // console.log(json);
+                        alert("정보수정이 완료되었습니다.")
+                    },
+                    error: function () {
+                        alert("수정에 실패하였습니다.")
+                    }
+                });
             });
-        });
-    }
-});
+        }
+    });
 
 </script>
 
