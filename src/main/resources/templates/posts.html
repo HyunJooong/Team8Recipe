@@ -43,6 +43,7 @@
                 <form action="/api/edit-page" method="post"  onsubmit="jbSubmit()">
 
                     <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1" >Id</span>
                         <input type="text" class="form-control" id = "id" name="id" placeholder="Username" aria-label="Username"
                                aria-describedby="basic-addon1" th:value="${post.getId()}">
                     </div>
@@ -59,8 +60,13 @@
                     </div>
                     <input id="signupSuccess" type="submit" value="수정하기">
                     <button type="button" class="cancelBtn" id="delete-btn">삭제하기</button>
+
                 </form>
 
+                <form id="commentForm">
+                    <textarea id="commentContent" rows="3" placeholder="댓글을 작성해주세요"></textarea>
+                    <button type="button" id="comment_button" class="btn btn-outline-dark">댓글 작성</button>
+                </form>
 
             </article>
         </div>
@@ -76,8 +82,7 @@
 
 <script th:inline="javascript">
     $(document).ready(function () {
-        var post =[[${post}]];
-        $('#id').hide();
+        // $('#id').hide();
         $('#title').attr('disabled', true);
         $('#content').attr('disabled', true);
 
@@ -168,13 +173,13 @@
 
     if (deleteButton) {
         deleteButton.addEventListener('click', event => {
-            let id = document.getElementById('post_id').value;
+             let id = post.id;
             fetch(`/api/posts/${id}`, {
                 method: 'DELETE'
             })
                 .then(() => {
                     alert('삭제가 완료되었습니다.');
-                    location.replace('/posts');
+                    location.replace('/');
                 });
         });
     }

@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
 @Service
@@ -66,6 +67,10 @@ public class CommentService {
     public Comment findById(Long id){
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found" + id));
+    }
+
+    public List<Comment> findAll(){
+        return commentRepository.findAll();
     }
 
 }
