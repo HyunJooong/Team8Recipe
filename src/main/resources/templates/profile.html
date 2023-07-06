@@ -63,9 +63,12 @@
                 </tr>
             </table>
         </form>
-        <button type="button" id="changebtnsuccess" class="btn btn-primary btn" style="display: none; margin-left: 2em; margin-top: 10px;">완료</button>
-        <button type="button" id="changebtn" class="btn btn-primary btn" style="margin-left: 2em; margin-top: 10px;">수정</button>
-        <button type="button" id="cancel" class="btn btn-secondary btn" style="margin-left: 10px; margin-top: 10px;">취소</button>
+        <button type="button" id="changebtnsuccess" class="btn btn-primary btn"
+            style="display: none; margin-left: 2em; margin-top: 10px;">완료</button>
+        <button type="button" id="changebtn" class="btn btn-primary btn"
+            style="margin-left: 2em; margin-top: 10px;">수정</button>
+        <button type="button" id="cancel" class="btn btn-secondary btn"
+            style="margin-left: 10px; margin-top: 10px;">취소</button>
     </div>
 </body>
 
@@ -89,12 +92,6 @@
         $('.inputbox').prop("disabled", false);
     });
 
-    $('#changebtnsuccess').click(function () {
-        $('#changebtnsuccess').hide();
-        $('#changebtn').show();
-        $('.inputbox').prop("disabled", true);
-    });
-
     $.ajax({
         url: "/profile",
         type: "GET",
@@ -103,7 +100,6 @@
             let userName = response['profileResponseDto']['userName'];
             let intro = response['profileResponseDto']['intro'];
             let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
-            console.log(userId)
             let textarea_str = $('#intro').val();
             textarea_str = intro;
 
@@ -114,6 +110,25 @@
             $('#changebtnsuccess').click(function () {
                 let userName = $('#userName').val();
                 let intro = $('#intro').val();
+                let usernm = document.getElementById("userName");
+                let intro2 = document.getElementById("intro");
+                let RegExp = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,20}$/;
+
+                if (usernm.value == "") {
+                    alert("닉네임이 공백입니다. 문자 입력해주세요.");
+                    usernm.focus();
+                    return false;
+                } else if (!RegExp.test(usernm.value)) {
+                    alert("닉네임을 3글자 이상 20글자 이하로 입력해주세요.");
+                    usernm.focus();
+                    return false;
+                }
+
+                if (intro.length <= 10 || intro.length > 1000 ) {
+                    alert("자기소개를 10글자 이상 1000글자 미만으로 입력해주세요.")
+                    intro2.focus();
+                    return false;
+                }
 
                 $.ajax({
                     url: "/profile/update/" + userId, // 실제 사용자 ID값 사용
@@ -126,6 +141,9 @@
                     success: function (json) {
                         // console.log(json);
                         alert("정보수정이 완료되었습니다.")
+                        $('#changebtnsuccess').hide();
+                        $('#changebtn').show();
+                        $('.inputbox').prop("disabled", true);
                     },
                     error: function () {
                         alert("수정에 실패하였습니다.")

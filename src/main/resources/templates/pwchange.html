@@ -61,8 +61,10 @@
                     </td>
                 </tr>
             </table>
-            <button type="button" id="pwUpdate" class="btn btn-primary btn" style="margin-left: 2rem; margin-top: 10px;">변경</button>
-            <button type="button" id="cancel" class="btn btn-secondary btn" style="margin-left: 10px; margin-top: 10px;">취소</button>
+            <button type="button" id="pwUpdate" class="btn btn-primary btn"
+                style="margin-left: 2rem; margin-top: 10px;">변경</button>
+            <button type="button" id="cancel" class="btn btn-secondary btn"
+                style="margin-left: 10px; margin-top: 10px;">취소</button>
         </form>
     </div>
 </body>
@@ -84,7 +86,48 @@
             $('#pwUpdate').click(function () {
                 let currentPassword = $('#memberPw1').val();
                 let newPassword = $('#memberPw2').val();
-                let password3 = $('#memberPw3').val();
+                let newPassword2 = $('#memberPw3').val();
+                for (let i = 1; i < 3; i++) {
+                    var pw = $("#memberPw" + i).val()
+                    var num = pw.search(/[0-9]/g);
+                    var eng = pw.search(/[a-z]/ig);
+                    var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+                    if (pw.length < 8 || pw.length > 20) {
+                        alert("8자리 ~ 20자리 이내로 입력해주세요.");
+                        return false;
+                    } else if (pw.search(/\s/) != -1) {
+                        alert("비밀번호는 공백 없이 입력해주세요.");
+                        return false;
+                    } else if (num < 0 || eng < 0 || spe < 0) {
+                        alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+                        return false;
+                    } else {
+                        console.log("통과");
+                    }
+                }
+
+                if ($('#memberPw1').val() == '') {
+                    alert("현재 비밀번호를 입력해주세요.");
+                    $("#memberPw1").focus();
+                    return false
+                }
+                if ($('#memberPw2').val() == '') {
+                    alert("새로운 비밀번호를 입력해주세요.");
+                    $("#memberPw1").focus();
+                    return false
+                }
+                if ($('#memberPw3').val() == '') {
+                    alert("새로운 비밀번호 확인을 입력해주세요.");
+                    $("#memberPw1").focus();
+                    return false
+                }
+                if ($("#memberPw2").val() != $("#memberPw3").val()) {
+                    alert("변경비밀번호가 일치하지 않습니다.");
+                    $("#memberPw3").focus();
+                    return false
+                }
+
 
                 $.ajax({
                     url: "/profile/password/" + userId, // 실제 사용자 ID값 사용
@@ -100,26 +143,6 @@
                         window.location.href = "/user/profile-page";
                     },
                     error: function () {
-                        if ($('#memberPw1').val() == '') {
-                            alert("현재 비밀번호를 입력해주세요.");
-                            $("#memberPw1").focus();
-                            return false
-                        }
-                        if ($('#memberPw2').val() == '') {
-                            alert("새로운 비밀번호를 입력해주세요.");
-                            $("#memberPw1").focus();
-                            return false
-                        }
-                        if ($('#memberPw3').val() == '') {
-                            alert("새로운 비밀번호 확인을 입력해주세요.");
-                            $("#memberPw1").focus();
-                            return false
-                        }
-                        if ($("#memberPw2").val() != $("#memberPw3").val()) {
-                            alert("변경비밀번호가 일치하지 않습니다.");
-                            $("#memberPw3").focus();
-                        }
-
                         alert("현재비밀번호가 일치하지않습니다.");
                     }
                 });
