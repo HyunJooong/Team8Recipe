@@ -80,15 +80,13 @@
 
   <div class="login" id ="login">
     <p>사용자 : </p>
-    <button class="Btn" >프로필확인</button>
+    <button id="profile" class="Btn" onclick="">프로필확인</button>
     <button class="logoutBtn" onclick="logout()">로그아웃</button>
   </div>
-
 
 </div>
 
 <div class="mid">
-
   <div class="postsBox">
     <div class="row row-cols-1 row-cols-md-5 g-4" id="page">
 <!--      <p th:text="${result[0]}"></p>-->
@@ -102,7 +100,6 @@
   <div class="write" id ="write">
     <button class="writeBtn" onclick="insert()">작성하기</button>
   </div>
-
 
   <div>
 
@@ -147,6 +144,10 @@
   function  signup(){
     window.location.href = "/user/signup-page";
   }
+
+  $("#profile").click(function(){
+    window.location.href = "/user/profile-page";
+  });
 
   function  insert(){
     window.location.href = "/api/insert-posts";

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>비밀번호 수정</title>
+    <style>
+        table {
+            margin: auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p-3 bg-body-secondary">
+        <p class="display-6 text-center">
+            마이페이지 비밀번호 수정
+        </p>
+    </div>
+    <div class="text-center container">
+        <form id="passwordForm" name="infobox" style="margin-top: 15%; margin-right: 2%;">
+            <table>
+                <tr>
+                    <th class="p-3">현재 비밀번호</th>
+                    <td>
+                        <input type="password" id="memberPw1" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="p-3">새로운 비밀번호</th>
+                    <td>
+                        <input type="password" id="memberPw2" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="p-3">새로운 비밀번호 확인</th>
+                    <td>
+                        <input type="password" id="memberPw3" class="inputbox form-control text-center"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </td>
+                </tr>
+            </table>
+            <button type="button" id="pwUpdate" class="btn btn-primary btn" style="margin-left: 2rem; margin-top: 10px;">변경</button>
+            <button type="button" id="cancel" class="btn btn-secondary btn" style="margin-left: 10px; margin-top: 10px;">취소</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    $('#cancel').click(function () {
+        window.location.href = "/user/profile-page";
+    });
+
+    $.ajax({
+        url: "/profile",
+        type: "GET",
+        contentType: "application/json",
+        success: function (response) {
+            let password = response['profileResponseDto']['password'];
+            let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
+            // console.log(userId)
+
+            $('#pwUpdate').click(function () {
+                let currentPassword = $('#memberPw1').val();
+                let newPassword = $('#memberPw2').val();
+                let password3 = $('#memberPw3').val();
+
+                $.ajax({
+                    url: "/profile/password/" + userId, // 실제 사용자 ID값 사용
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "currentPassword": currentPassword,
+                        "newPassword": newPassword
+                    }),
+                    success: function (json) {
+                        // console.log(json);
+                        alert("비밀번호수정이 완료되었습니다.");
+                        window.location.href = "/user/profile-page";
+                    },
+                    error: function () {
+                        if ($('#memberPw1').val() == '') {
+                            alert("현재 비밀번호를 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($('#memberPw2').val() == '') {
+                            alert("새로운 비밀번호를 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($('#memberPw3').val() == '') {
+                            alert("새로운 비밀번호 확인을 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($("#memberPw2").val() != $("#memberPw3").val()) {
+                            alert("변경비밀번호가 일치하지 않습니다.");
+                            $("#memberPw3").focus();
+                        }
+
+                        alert("현재비밀번호가 일치하지않습니다.");
+                    }
+                });
+            });
+        }
+    });
+</script>
+
+</html>
