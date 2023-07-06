@@ -39,32 +39,90 @@
     <div class="text-center container">
         <table>
             <tr>
-                <th class="p-3">비밀번호</th>
+                <th class="p-3">현재 비밀번호</th>
                 <td>
-                    <input type="password" class="inputbox form-control text-center" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="password" id="memberPw1" class="inputbox form-control text-center"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </td>
             </tr>
             <tr>
-                <th class="p-3" >새로운 비밀번호</th>
+                <th class="p-3">새로운 비밀번호</th>
                 <td>
-                    <input type="password" class="inputbox form-control text-center" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="password" id="memberPw2" class="inputbox form-control text-center"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </td>
             </tr>
             <tr>
                 <th class="p-3">새로운 비밀번호 확인</th>
                 <td>
-                    <input type="password" class="inputbox form-control text-center" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="password" id="memberPw3" class="inputbox form-control text-center"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </td>
             </tr>
         </table>
-        <button type="button" class="btn btn-primary btn">변경</button>
+        <button type="button" id="pwUpdate" class="btn btn-primary btn">변경</button>
         <button type="button" id="cancel" class="btn btn-secondary btn">취소</button>
     </div>
 </body>
 
 <script>
-    $('#cancel').click(function() {
+    $('#cancel').click(function () {
         window.location.href = "/user/profile-page";
+    });
+
+    $.ajax({
+        url: "/profile",
+        type: "GET",
+        contentType: "application/json",
+        success: function (response) {
+            let password = response['profileResponseDto']['password'];
+            let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
+            // console.log(userId)
+
+            $('#pwUpdate').click(function () {
+                let currentPassword = $('#memberPw1').val();
+                let newPassword = $('#memberPw2').val();
+                let password3 = $('#memberPw3').val();
+
+                $.ajax({
+                    url: "/profile/password/" + userId, // 실제 사용자 ID값 사용
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "currentPassword": currentPassword,
+                        "newPassword": newPassword
+                    }),
+                    success: function (json) {
+                        // console.log(json);
+                        alert("비밀번호수정이 완료되었습니다.");
+                        window.location.href = "/user/profile-page";
+                    },
+                    error: function () {
+                        if ($('#memberPw1').val() == '') {
+                            alert("현재 비밀번호를 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($('#memberPw2').val() == '') {
+                            alert("새로운 비밀번호를 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($('#memberPw3').val() == '') {
+                            alert("새로운 비밀번호 확인을 입력해주세요.");
+                            $("#memberPw1").focus();
+                            return false
+                        }
+                        if ($("#memberPw2").val() != $("#memberPw3").val()) {
+                            alert("변경비밀번호가 일치하지 않습니다.");
+                            $("#memberPw3").focus();
+                        }
+
+                        alert("현재비밀번호가 일치하지않습니다.");
+                    }
+                });
+            });
+        }
     });
 </script>
 

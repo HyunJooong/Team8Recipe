@@ -1,6 +1,5 @@
 package com.example.team8recipe.jwt;
 
-import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -14,8 +13,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -66,13 +63,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         context.setAuthentication(authentication);
 
         SecurityContextHolder.setContext(context);
-
-        // 사용자 ID 추출
-        String userId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getUserId();
-
-        // 추출한 사용자 ID를 후속 요청에 전달
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        request.setAttribute("userId", userId);
     }
 
     // 인증 객체 생성
