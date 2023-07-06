@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Setter
 @Transactional
 public class ProfileRequestDto {
-    private long id;
+    private String user_id;
     private String password;
     private String userName;
     private String intro;

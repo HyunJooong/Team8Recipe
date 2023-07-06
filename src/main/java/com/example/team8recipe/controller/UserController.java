@@ -61,4 +61,14 @@ public class UserController {
        return "redirect:/";
     }
 
+    @GetMapping("/profile-page")
+    public String getProfilePage() {
+        return "profile";
+    }
+
+    @GetMapping("/profile-page/pwchange")
+    public String getPwChangePage() {
+        return "pwchange";
+    }
+
 }

@@ -51,9 +51,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("로그인 성공 및 JWT 생성");
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
+        String userId = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getUserId(); // UserDetailsImpl 객체나 JWT 토큰에서 사용자 ID 추출하기
 
         String token = jwtUtil.createToken(username);
         jwtUtil.addJwtToCookie(token, response);
+
+        // 추출한 사용자 ID를 후속 요청에 전달
+        request.setAttribute("userId", userId);
+
+        chain.doFilter(request, response);
     }
 
     //로그인 실패시 동작

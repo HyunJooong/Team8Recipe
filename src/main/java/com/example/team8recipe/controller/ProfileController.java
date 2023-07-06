@@ -3,23 +3,26 @@ package com.example.team8recipe.controller;
 import com.example.team8recipe.dto.ProfileRequestDto;
 import com.example.team8recipe.dto.ProfileResponseDto;
 import com.example.team8recipe.dto.UserInfoDto;
-import com.example.team8recipe.entity.User;
-import com.example.team8recipe.entity.UserRoleEnum;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.ProfileService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ProfileController {
     private final ProfileService profileService;
 
     @GetMapping("/profile")
-    public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, HttpServletResponse response) throws IOException {
         String username = userDetails.getUser().getUsername();
 //        UserRoleEnum role = userDetails.getUser().getRole();
 //        boolean isAdmin = (role == UserRoleEnum.ADMIN);
@@ -31,7 +34,7 @@ public class ProfileController {
 //        return new UserInfoDto(username, isAdmin, profileResponseDto);
     }
 
-    @PutMapping("/profile/{userId}")
+    @PutMapping("/profile/update/{userId}")
     public ResponseEntity<ProfileResponseDto> updateProfile(
             @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
@@ -46,7 +49,7 @@ public class ProfileController {
         return ResponseEntity.ok(updatedProfile);
     }
 
-    @PutMapping("/profile/{userId}/password")
+    @PutMapping("/profile/password/{userId}")
     public ResponseEntity<ProfileResponseDto> changePassword(
             @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
