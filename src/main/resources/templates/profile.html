@@ -49,10 +49,6 @@
                 <tr>
                     <th class="p-3">비밀번호</th>
                     <td>
-                        <input type="password" id="password" class="form-control text-center"
-                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </td>
-                    <td>
                         <button type="button" id="passwordChange" class="btn btn-primary btn m-2">변경</button>
                     </td>
                 </tr>
@@ -104,7 +100,6 @@
     contentType: "application/json",
     success: function (response) {
         let userName = response['profileResponseDto']['userName'];
-        let password = response['profileResponseDto']['password'];
         let intro = response['profileResponseDto']['intro'];
         let userId = response['profileResponseDto']['user_id']; // 실제 사용자 ID값 가져오기
         console.log(userId)
@@ -112,21 +107,18 @@
         textarea_str = intro;
 
         $('#userName').attr('value', userName);
-        $('#password').attr('value', password);
         $('#intro').html(textarea_str);
 
         // 수정 버튼 클릭 시 AJAX 요청에서 실제 사용자 ID값 사용
         $('#changebtnsuccess').click(function () {
             let userName = $('#userName').val();
             let intro = $('#intro').val();
-            let password = $('#password').val();
 
             $.ajax({
                 url: "/profile/update/"+userId, // 실제 사용자 ID값 사용
                 type: "PUT",
                 data: JSON.stringify({
                     "userName": userName,
-                    "password": password,
                     "intro": intro,
                 }),
                 contentType: "application/json",

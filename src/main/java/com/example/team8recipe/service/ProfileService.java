@@ -26,7 +26,6 @@ public class ProfileService {
 
         user.setUsername(updateProfile.getUserName());
         user.setIntro(updateProfile.getIntro());
-        user.setPassword(updateProfile.getPassword());
 
         user = userRepository.save(user);
 
