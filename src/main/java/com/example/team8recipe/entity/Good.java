@@ -16,12 +16,12 @@ public class Good {
     private Long id;
 
     //좋아요 누른 사람   좋아요 n:1 유저
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "users")
     private User user;
 
     //좋아요가 눌린 게시글  좋아요 n:1 게시글
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "posts")
     private Post post;
 
