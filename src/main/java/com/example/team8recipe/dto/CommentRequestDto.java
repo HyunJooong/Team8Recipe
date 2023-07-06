@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class CommentRequestDto {
 
-    private Long post_id; // 게시글 id
+
     private String body; //게시글 본문
 }

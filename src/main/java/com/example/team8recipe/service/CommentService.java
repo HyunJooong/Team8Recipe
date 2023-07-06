@@ -22,15 +22,13 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     // 댓글 생성
-    public CommentResponseDto createComment(CommentRequestDto commentRequestDto, User user){ //게시글과 유저 정보 파라미터
-        Post post = postService.findPost(commentRequestDto.getPost_id()); // 게시글 존재하면 가져오기
+    public CommentResponseDto createComment(CommentRequestDto commentRequestDto,Long id, User user){ //게시글과 유저 정보 파라미터
+        Post post = postService.findPost(id); // 게시글 존재하면 가져오기
 
-        Comment comment = new Comment(commentRequestDto.getBody()); // comment 본문
+        Comment comment = new Comment(commentRequestDto,user,post); // comment 본문
 
-        comment.setUser(user);
-        comment.setPost(post);
+       commentRepository.save(comment);
 
-        commentRepository.save(comment);
 
         return new CommentResponseDto(comment);
 

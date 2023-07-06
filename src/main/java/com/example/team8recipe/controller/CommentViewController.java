@@ -42,14 +42,14 @@ public class CommentViewController {
     }
 
     //댓글 전체 조회
-    @GetMapping("/comments")
-    public String getComments(Model model){
-        List<CommentListViewResponseDto> commentListViewResponseDtos = commentService.findAll().stream()
-                .map(CommentListViewResponseDto::new)
-                .toList();
-        model.addAttribute("comments", commentListViewResponseDtos);
-        return "posts";
-    }
+//    @GetMapping("/comments")
+//    public String getComments(Model model){
+//        List<CommentListViewResponseDto> commentListViewResponseDtos = commentService.findAll().stream()
+//                .map(CommentListViewResponseDto::new)
+//                .toList();
+//        model.addAttribute("comments", commentListViewResponseDtos);
+//        return "posts";
+//    }
 
 
 
