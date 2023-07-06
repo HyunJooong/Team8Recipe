@@ -6,6 +6,7 @@ import com.example.team8recipe.dto.UserInfoDto;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.ProfileService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,18 +25,16 @@ public class ProfileController {
     @GetMapping("/profile")
     public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, HttpServletResponse response) throws IOException {
         String username = userDetails.getUser().getUsername();
-//        UserRoleEnum role = userDetails.getUser().getRole();
-//        boolean isAdmin = (role == UserRoleEnum.ADMIN);
 
         String userId = userDetails.getUser().getUserId();
         ProfileResponseDto profileResponseDto = profileService.getUsers(userId);
 
         return new UserInfoDto(username, profileResponseDto);
-//        return new UserInfoDto(username, isAdmin, profileResponseDto);
     }
 
     @PutMapping("/profile/update/{userId}")
     public ResponseEntity<ProfileResponseDto> updateProfile(
+            @Valid
             @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -51,6 +50,7 @@ public class ProfileController {
 
     @PutMapping("/profile/password/{userId}")
     public ResponseEntity<ProfileResponseDto> changePassword(
+            @Valid
             @PathVariable String userId,
             @RequestBody ProfileRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
