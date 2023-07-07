@@ -5,7 +5,6 @@ import com.example.team8recipe.dto.CommentResponseDto;
 import com.example.team8recipe.entity.Comment;
 import com.example.team8recipe.entity.Post;
 import com.example.team8recipe.entity.User;
-import com.example.team8recipe.entity.UserRoleEnum;
 import com.example.team8recipe.repository.CommentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
