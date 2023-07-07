@@ -4,6 +4,7 @@ import com.example.team8recipe.dto.SignupRequestDto;
 import com.example.team8recipe.jwt.JwtUtil;
 import com.example.team8recipe.service.EmailService;
 import com.example.team8recipe.service.UserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URLEncoder;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,6 +27,11 @@ public class UserController {
     @GetMapping("/signup-page")
     public String userSignup(){
         return "signup";
+    }
+
+    @GetMapping("/posts-page")
+    public String postsSignup(){
+        return "posts";
     }
 
     @PostMapping("/signup")
@@ -65,6 +73,16 @@ public class UserController {
 //        response.setStatus(401);
     }
 
+    @PostMapping("/signup/checkCode")
+    @ResponseBody
+    public String checkCode(@RequestParam String code) {
+        if (code.equals(emailService.getEPw())) {
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+
     @GetMapping("/login-page")
     public String userlogin(){
         return "login";
@@ -74,6 +92,16 @@ public class UserController {
     public String logout(HttpServletRequest request, HttpServletResponse response,String name){
         jwtUtil.deleteCookie(request,response,"Authorization");
         return "redirect:/";
+    }
+
+    @GetMapping("/profile-page")
+    public String getProfilePage() {
+        return "profile";
+    }
+
+    @GetMapping("/profile-page/pwchange")
+    public String getPwChangePage() {
+        return "pwchange";
     }
 
 }
