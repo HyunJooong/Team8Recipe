@@ -1,20 +1,27 @@
 package com.example.team8recipe.controller;
 
-import com.example.team8recipe.dto.ApiResponseDto;
-import com.example.team8recipe.dto.PostListResponseDto;
-import com.example.team8recipe.dto.PostRequestDto;
-import com.example.team8recipe.dto.PostResponseDto;
+import com.example.team8recipe.dto.*;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.PostService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class PostController {
@@ -29,31 +36,57 @@ public class PostController {
         return ResponseEntity.status(201).body(result);
     }
 
+    @GetMapping("/insert-posts")
+    public String userSignup(){
+        return "newposts";
+    }
+
     //전체 게시글 조회
     @GetMapping("/posts")
-    public ResponseEntity<PostListResponseDto> getPosts() {
+    public String getPosts(Model model) throws JsonProcessingException {
         PostListResponseDto result = postService.getPosts();
 
-        return ResponseEntity.ok().body(result);
+//        ObjectMapper objectMapper = new ObjectMapper(); // Jackson 라이브러리의 ObjectMapper
+//        String json = objectMapper.writeValueAsString(result.getPostsList());
+//
+//        JSONObject jsnobject = new JSONObject(json);
+//
+//        JSONArray jsonArray = jsnobject.getJSONArray("postsList");
+
+//        model.addAttribute("result", jsonArray);
+
+        return "index";
     }
 
     //선택 게시글 조회
     @GetMapping("/posts/{id}")
-    public ResponseEntity<PostResponseDto> getPostById(@PathVariable Long id) {
+    public String getPostById(@PathVariable Long id,Model model) {
         PostResponseDto result = postService.getPostById(id);
-
-        return ResponseEntity.ok().body(result);
+        model.addAttribute("post", result);
+        return "posts";
     }
 
     //게시글 수정
     @PutMapping("/posts/{id}")
     public ResponseEntity<ApiResponseDto> updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+
+        System.out.println("id = " + id);
+
+
         try {
             PostResponseDto result = postService.updatePost(id, requestDto, userDetails.getUser());
             return ResponseEntity.ok().body(result);
         } catch (RejectedExecutionException e) {
             return ResponseEntity.badRequest().body(new ApiResponseDto("작성자만 수정 할 수 있습니다.", HttpStatus.BAD_REQUEST.value()));
         }
+    }
+
+    @PostMapping("/edit-page")
+    public String userEdit(@ModelAttribute InsertDto requestDto, Model model){
+
+        model.addAttribute("data",requestDto);
+
+        return "postEdit";
     }
 
     //게시글 삭제

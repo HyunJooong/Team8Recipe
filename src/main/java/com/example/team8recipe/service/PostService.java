@@ -45,7 +45,7 @@ public class PostService {
     public void deletePost(Long id, User user) {
         Post post = findPost(id);
 
-        // 게시글 작성자(post.user) 인지 체크 (아니면 예외발생)
+//        // 게시글 작성자(post.user) 인지 체크 (아니면 예외발생)
         if (!post.getUser().getUserId().equals(user.getUserId())) {
             throw new RejectedExecutionException();
         }
@@ -56,7 +56,7 @@ public class PostService {
     @Transactional
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto, User user) {
         Post post = findPost(id);
-        System.out.println("Service // post.getUser() = " + post.getUser().getUserId());
+//        System.out.println("Service // post.getUser() = " + post.getUser().getUserId());
         // 게시글 작성자(post.user) 인지 체크 (아니면 예외발생)
         if (!post.getUser().getUserId().equals(user.getUserId())) {
             throw new RejectedExecutionException();

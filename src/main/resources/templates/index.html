@@ -79,7 +79,7 @@
 
 
   <div class="login" id ="login">
-    <p>사용자 : <a id="nickname"></a></p>
+    <p>사용자 : </p>
     <button id="profile" class="Btn" onclick="">프로필확인</button>
     <button class="logoutBtn" onclick="logout()">로그아웃</button>
   </div>
@@ -88,61 +88,8 @@
 
 <div class="mid">
   <div class="postsBox">
-    <div class="row row-cols-1 row-cols-md-5 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">이민우</h5>
-            <p class="card-text">갈비찜 레시피</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">이민우</h5>
-            <p class="card-text">김치찌개 레시피</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a short card.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a short card.</p>
-          </div>
-        </div>
-      </div>
+    <div class="row row-cols-1 row-cols-md-5 g-4" id="page">
+<!--      <p th:text="${result[0]}"></p>-->
     </div>
   </div>
 </div>
@@ -151,7 +98,7 @@
 
 <div class="bottom">
   <div class="write" id ="write">
-    <button class="writeBtn" >작성하기</button>
+    <button class="writeBtn" onclick="insert()">작성하기</button>
   </div>
 
   <div>
@@ -161,6 +108,8 @@
 
 <script>
   $(document).ready(function () {
+    // var result =[[${result}]];
+
     var login= document.getElementById("login");
     var logout = document.getElementById("logout");
     var write = document.getElementById("write");
@@ -171,6 +120,18 @@
       login.style.display ="none";
       write.style.display ="none";
     }
+
+    let temp_html = `<div class="col">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title"  >이민우</h5>
+                          <p class="card-text" >갈비찜 레시피</p>
+                        </div>
+                      </div>
+                    </div>`;
+
+    $('#page').append(temp_html);
   });
 
   function logout() {
@@ -188,17 +149,11 @@
     window.location.href = "/user/profile-page";
   });
 
-  $.ajax({
-        url: "/profile",
-        type: "GET",
-        contentType: "application/json",
-        success: function (response) {
-            let nickname = response['profileResponseDto']['userName'];
-            // console.log(nickname)
-            let nickname_str = $('#nickname').val();
-            nickname_str = nickname;
-            $('#nickname').html(nickname_str);
-        }
-    });
+  function  insert(){
+    window.location.href = "/api/insert-posts";
+  }
+
+
+
 
 </script>
