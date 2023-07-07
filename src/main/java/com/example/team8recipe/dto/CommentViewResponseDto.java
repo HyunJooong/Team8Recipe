@@ -2,14 +2,15 @@ package com.example.team8recipe.dto;
 
 import com.example.team8recipe.entity.Comment;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CommentResponseDto extends ApiResponseDto{
-
+@NoArgsConstructor
+public class CommentViewResponseDto extends ApiResponseDto{
 
     private String body; // 본문
     private String userName;
@@ -17,9 +18,9 @@ public class CommentResponseDto extends ApiResponseDto{
     private LocalDateTime modifiedAt;
     private Long post_id;
 
-    public CommentResponseDto(Comment comment) {
-
+    public CommentViewResponseDto(Comment comment) {
         super();
+
         this.post_id = comment.getId();
         this.body = comment.getBody();
         this.userName = comment.getUser().getUsername();

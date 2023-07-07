@@ -1,6 +1,7 @@
 package com.example.team8recipe.controller;
 
 import com.example.team8recipe.dto.ApiResponseDto;
+import com.example.team8recipe.dto.CommentListViewResponseDto;
 import com.example.team8recipe.dto.CommentRequestDto;
 import com.example.team8recipe.dto.CommentResponseDto;
 import com.example.team8recipe.security.UserDetailsImpl;
@@ -9,26 +10,38 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/comments") // 댓글 생성
+    @PostMapping("/comments/{id}") // 댓글 생성
     public ResponseEntity<CommentResponseDto> createComment(@AuthenticationPrincipal
-                                                            UserDetailsImpl userDetails,
+                                                            UserDetailsImpl userDetails,@PathVariable Long id,
                                                             @RequestBody CommentRequestDto requestDto){
 
-        CommentResponseDto commentResult = commentService.createComment(requestDto,userDetails.getUser());
+        CommentResponseDto commentResult = commentService.createComment(requestDto,id,userDetails.getUser());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResult);
     }
+    @GetMapping("/comments/{id}")
+    public String getComments(Model model){
+        List<CommentListViewResponseDto> commentListViewResponseDtos = commentService.findAll().stream()
+                .map(CommentListViewResponseDto::new)
+                .toList();
+        model.addAttribute("comments", commentListViewResponseDtos);
+        return "posts";
+    }
+
+
 
 
     @PutMapping("/comments/{id}") // 댓글 수정

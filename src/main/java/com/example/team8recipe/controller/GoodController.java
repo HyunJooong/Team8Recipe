@@ -1,6 +1,6 @@
 package com.example.team8recipe.controller;
 
-import com.example.team8recipe.dto.GoodRequestDto;
+
 import com.example.team8recipe.repository.GoodRepository;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.GoodService;
@@ -19,7 +19,20 @@ public class GoodController {
     }
 
     @DeleteMapping("/posts/{id}/click")
-    public void goodClick(@PathVariable Long id,@RequestBody GoodRequestDto requestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public void goodClick(@PathVariable Long id,@RequestParam boolean requestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        System.out.println("id = " + id);
+        System.out.println("requestDto = " + requestDto);
+
         goodService.goodClick(id,requestDto,userDetails);
+    }
+
+    @GetMapping("/getGood/{id}")
+    public boolean getGood(@PathVariable Long id,  @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return goodService.getGood(id, userDetails);
+    }
+
+    @GetMapping("/goodnumber/{id}")
+    public int number(@PathVariable Long id){
+        return goodService.number(id);
     }
 }

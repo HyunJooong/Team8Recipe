@@ -83,15 +83,15 @@ public class UserController {
         }
     }
 
-   @GetMapping("/login-page")
+    @GetMapping("/login-page")
     public String userlogin(){
         return "login";
-   }
+    }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response,String name){
-       jwtUtil.deleteCookie(request,response,"Authorization");
-       return "redirect:/";
+        jwtUtil.deleteCookie(request,response,"Authorization");
+        return "redirect:/";
     }
 
     @GetMapping("/profile-page")

@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentRequestDto {
-
-
-    private String body; //게시글 본문
+public class GoodResponseDto {
+    private boolean success;
+    private Long number;
 }

@@ -4,12 +4,7 @@ import com.example.team8recipe.dto.*;
 import com.example.team8recipe.security.UserDetailsImpl;
 import com.example.team8recipe.service.PostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
 @Controller
@@ -43,19 +36,10 @@ public class PostController {
 
     //전체 게시글 조회
     @GetMapping("/posts")
-    public String getPosts(Model model) throws JsonProcessingException {
+    public ResponseEntity<PostListResponseDto> getPosts(Model model) throws JsonProcessingException {
         PostListResponseDto result = postService.getPosts();
 
-//        ObjectMapper objectMapper = new ObjectMapper(); // Jackson 라이브러리의 ObjectMapper
-//        String json = objectMapper.writeValueAsString(result.getPostsList());
-//
-//        JSONObject jsnobject = new JSONObject(json);
-//
-//        JSONArray jsonArray = jsnobject.getJSONArray("postsList");
-
-//        model.addAttribute("result", jsonArray);
-
-        return "index";
+        return ResponseEntity.ok().body(result);
     }
 
     //선택 게시글 조회

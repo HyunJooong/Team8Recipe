@@ -1,26 +1,25 @@
 package com.example.team8recipe.dto;
 
 import com.example.team8recipe.entity.Comment;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-public class CommentResponseDto extends ApiResponseDto{
-
+@Controller
+@RequiredArgsConstructor
+public class CommentListViewResponseDto {
 
     private String body; // 본문
     private String userName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private Long post_id;
+    private Long id;
 
-    public CommentResponseDto(Comment comment) {
-
+    public CommentListViewResponseDto(Comment comment) {
         super();
-        this.post_id = comment.getId();
+
+        this.id = comment.getId();
         this.body = comment.getBody();
         this.userName = comment.getUser().getUsername();
         this.createdAt =comment.getPost().getCreatedAt();

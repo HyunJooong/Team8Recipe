@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
 @Service
@@ -20,15 +21,13 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     // 댓글 생성
-    public CommentResponseDto createComment(CommentRequestDto commentRequestDto, User user){ //게시글과 유저 정보 파라미터
-        Post post = postService.findPost(commentRequestDto.getPost_id()); // 게시글 존재하면 가져오기
+    public CommentResponseDto createComment(CommentRequestDto commentRequestDto,Long id, User user){ //게시글과 유저 정보 파라미터
+        Post post = postService.findPost(id); // 게시글 존재하면 가져오기
 
-        Comment comment = new Comment(commentRequestDto.getBody()); // comment 본문
-
-        comment.setUser(user);
-        comment.setPost(post);
+        Comment comment = new Comment(commentRequestDto,user,post); // comment 본문
 
         commentRepository.save(comment);
+
 
         return new CommentResponseDto(comment);
 
@@ -60,6 +59,15 @@ public class CommentService {
         }
 
         commentRepository.delete(comment);
+    }
+    //댓글 하나 조회(댓글 수정을 위해)
+    public Comment findById(Long id){
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found" + id));
+    }
+
+    public List<Comment> findAll(){
+        return commentRepository.findAll();
     }
 
 }

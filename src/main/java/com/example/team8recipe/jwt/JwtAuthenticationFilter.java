@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 시도");
         try {
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
-                                                                        //request.getInputStream() 로 클라이언트가 보낸 body 데이터를 확인 할 수 있다.
+            //request.getInputStream() 로 클라이언트가 보낸 body 데이터를 확인 할 수 있다.
             // 인증처리
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
