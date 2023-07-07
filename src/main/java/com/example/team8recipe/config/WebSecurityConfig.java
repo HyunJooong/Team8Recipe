@@ -110,9 +110,9 @@ public class WebSecurityConfig {
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
                         .requestMatchers("/","/user/**").permitAll()
-                        .requestMatchers("/api/posts").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
+
 
         // 필터 관리
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);

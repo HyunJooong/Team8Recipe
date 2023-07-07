@@ -15,15 +15,13 @@ public class SignupRequestDto {
     private String userId;
 
     @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&*()_+{}:\"<>?,.\\\\/]{7,15}$",
-                    message = "최소 7  자 이상, 15자 이하이며 알파벳 대소문자, 숫자로 구성")
+            message = "최소 7  자 이상, 15자 이하이며 알파벳 대소문자, 숫자로 구성")
     private String password;
 
-    @NotBlank(message = "공백을 허용하지 않습니다.")
+    @NotBlank
     private String username;
 
-    @Size(min = 10, max = 1000,
-            message = "자기소개 최대 10자 이상"
-    ) // 자기소개 최대 10자 이상
+    @Size(min = 10, max = 1000) // 자기소개 최대 10자 이상
     private String intro;
 
 
